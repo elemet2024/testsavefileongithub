@@ -7,9 +7,13 @@ counter_file = "loop_counter.txt"
 def read_counter():
     try:
         with open(counter_file, "r") as f:
-            return int(f.read().strip())
-    except FileNotFoundError:
-        return 0  # Start with 0 if file doesn't exist
+            content = f.read().strip()
+            if content:  # Check if the file contains valid content
+                return int(content)  # Convert content to integer
+            else:
+                return 0  # Default to 0 if file is empty
+    except (FileNotFoundError, ValueError):
+        return 0  # Default to 0 if file doesn't exist or has invalid content
 
 # Function to write the counter to the file
 def write_counter(count):
@@ -27,4 +31,4 @@ for i in range(1, 8):
 # Save the updated total count in the file
 write_counter(current_total_count)
 
-print(f"The total count after this run is saved in {counter_file}.")
+print(f"The total count after this run is {current_total_count} and saved in {counter_file}.")
