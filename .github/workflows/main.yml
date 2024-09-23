@@ -24,7 +24,7 @@ jobs:
       # Step 4: Run the Python script that handles the counter logic
       - name: Run counter script
         run: |
-          python counter_script.py  # Replace this with your actual Python script name
+          python counter.py  # Replace this with your actual Python script name
 
       # Step 5: Commit and push the updated counter file
       - name: Commit and push changes
