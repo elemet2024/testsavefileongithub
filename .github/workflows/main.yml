@@ -1,0 +1,32 @@
+name: Persistent Counter
+
+on:
+  workflow_dispatch: # This allows you to manually trigger the workflow from GitHub
+
+jobs:
+  count_and_update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt || true  # Add if you have dependencies
+
+    - name: Run counter script
+      run: python counter.py
+
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add loop_counter.txt
+        git commit -m "Update counter"
+        git push
