@@ -21,11 +21,6 @@ jobs:
         with:
           python-version: '3.x'
 
-      # Step 3: Install dependencies (if needed)
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt  # If your script has dependencies listed in a requirements.txt file
-
       # Step 4: Run the Python script that handles the counter logic
       - name: Run counter script
         run: |
