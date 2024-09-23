@@ -1,0 +1,41 @@
+name: Counter Loop
+
+on:
+  workflow_dispatch:  # Manual trigger of the workflow
+
+jobs:
+  run-counter-loop:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # Allows pushing changes back to the repository
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      # Step 3: Install dependencies (if needed)
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt  # If your script has dependencies listed in a requirements.txt file
+
+      # Step 4: Run the Python script that handles the counter logic
+      - name: Run counter script
+        run: |
+          python counter_script.py  # Replace this with your actual Python script name
+
+      # Step 5: Commit and push the updated counter file
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add counter_loop.txt  # This is the file your Python script modifies
+          git commit -m "Update counter"
+          git push origin main
